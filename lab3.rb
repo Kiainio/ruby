@@ -17,25 +17,29 @@
 用git提交到master分枝
 =end
 
-s = gets
-while s != nil
-    count = 0
-    for i in 0..(s.length - 2) do
-        count += case s[i].to_i
-        when 1 then 2
-        when 2 then
-            if s[i + 1].to_i <= 6
-                2
-            else
-                1
-            end
-        when 0 then 0
-        else 1
+def count(s)
+    s.reverse
+    ans = [5005]
+    ans[-1] = 1
+    ans[0] = case s[0].to_i
+    when 0 then 0
+    else 1
+    end
+    for i in 1..(s.length - 1) do
+        n = s[i].to_i
+        if s[i] == 0
+            ans[i] = 0
+        elsif n == 1 || (n == 2 && s[i - 1].to_i <= 6)
+            ans[i] = ans[i - 2] + ans[i - 1]
+        else
+            ans[i] = ans[i - 1]
         end
     end
-    if s[i].to_i != 0
-       count += 1
-    end
-    puts count
+    return ans[i - 1]
+end
+
+s = gets
+while s != nil
+    puts count(s)
     s = gets
 end
