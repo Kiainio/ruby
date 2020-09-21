@@ -18,16 +18,18 @@
 =end
 
 def count(s)
-    s.reverse
-    ans = [5005]
+    s.strip!
+    s.reverse!
+    ans = Array.new(15, 0)
     ans[-1] = 1
     ans[0] = case s[0].to_i
     when 0 then 0
     else 1
     end
-    for i in 1..(s.length - 1) do
+    i = 1
+    for i in 1...(s.length) do
         n = s[i].to_i
-        if s[i] == 0
+        if n == 0
             ans[i] = 0
         elsif n == 1 || (n == 2 && s[i - 1].to_i <= 6)
             ans[i] = ans[i - 2] + ans[i - 1]
@@ -35,7 +37,7 @@ def count(s)
             ans[i] = ans[i - 1]
         end
     end
-    return ans[i - 1]
+    return ans[i]
 end
 
 s = gets
