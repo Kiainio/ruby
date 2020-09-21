@@ -20,7 +20,7 @@
 def count(s)
     s.strip!
     s.reverse!
-    ans = Array.new(15, 0)
+    ans = Array.new(5005, 0)
     ans[-1] = 1
     ans[0] = case s[0].to_i
     when 0 then 0
