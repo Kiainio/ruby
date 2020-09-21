@@ -26,7 +26,7 @@ def count(s)
     when 0 then 0
     else 1
     end
-    i = 1
+    i = 0
     for i in 1...(s.length) do
         n = s[i].to_i
         if n == 0
