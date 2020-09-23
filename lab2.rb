@@ -14,13 +14,10 @@
 count = 0
 s = gets
 n = s.to_i
-while n / 2 != 0
+while n != 0
     if n % 2 == 1
         count += 1
     end
     n /= 2
-end
-if n % 2 == 1
-    count += 1
 end
 puts count
