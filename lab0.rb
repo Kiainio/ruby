@@ -3,16 +3,12 @@ def p(n)
         return n
     else
         res = 1
-        while n / 10 > 0
+        while n != 0
             if n % 10 != 0
                 res *= n % 10
             end
             n /= 10
         end
-        if n % 10 != 0
-            res *= n % 10
-        end
-        n /= 10
     end
     return res
 end
