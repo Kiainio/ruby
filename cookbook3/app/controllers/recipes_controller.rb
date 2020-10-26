@@ -69,6 +69,6 @@ class RecipesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def recipe_params
-      params.require(:recipe).permit(:titile, :instructions, :category_id)
+      params.require(:recipe).permit(:title, :instructions, :category_i)
     end
 end

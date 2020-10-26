@@ -4,6 +4,7 @@
   <strong>Name:</strong>
   <%= @category.name %>
 </p>
+
 <p>
   <b>Recipes of this category:</b>
   <%= (@category.recipes.collect { |recipe| recipe.title }).join(", ") %>

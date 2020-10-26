@@ -14,7 +14,7 @@ class RecipesTest < ApplicationSystemTestCase
     visit recipes_url
     click_on "New Recipe"
 
-    fill_in "Titile", with: @recipe.titile
+    fill_in "Title", with: @recipe.title
     click_on "Create Recipe"
 
     assert_text "Recipe was successfully created"
@@ -25,7 +25,7 @@ class RecipesTest < ApplicationSystemTestCase
     visit recipes_url
     click_on "Edit", match: :first
 
-    fill_in "Titile", with: @recipe.titile
+    fill_in "Title", with: @recipe.title
     click_on "Update Recipe"
 
     assert_text "Recipe was successfully updated"
