@@ -19,4 +19,4 @@ deploy:
     - rails db:migrate
     - nohup rails server -d -b 0.0.0.0 -p 3000 &
   only:
-  - cookbook3 
+  - cookbook3
