@@ -3,7 +3,7 @@ require 'test_helper'
 class RecipesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @recipe = recipes(:one)
-    @category = category(:one)
+    @category = categories(:one)
   end
 
   test "should get index" do
