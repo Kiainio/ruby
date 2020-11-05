@@ -2,7 +2,7 @@ require 'test_helper'
 
 class RecipesControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @recipe = recipes(:one).
+    @recipe = recipes(:one)
     @category = category(:one)
   end
 
