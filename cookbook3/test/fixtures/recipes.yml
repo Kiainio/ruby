@@ -2,6 +2,8 @@
 
 one:
   title: MyString
+  category: one
 
 two:
   title: MyString
+  category: one
