@@ -3,9 +3,7 @@
 one:
   title: MyString
   content: MyText
-  comment: one
 
 two:
   title: MyString
   content: MyText
-  comment: one

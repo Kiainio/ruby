@@ -3,7 +3,6 @@ require 'test_helper'
 class BlogsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @blog = blogs(:one)
-    @comment = comments(:one)
   end
 
   test "should get index" do
