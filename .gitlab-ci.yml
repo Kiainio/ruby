@@ -1,22 +1,21 @@
 test:
   stage: test
   script:
-    - cd cookbook3
+    - cd blog4
     - bundle install
     - rails db:migrate RAILS_ENV=test
     - rails test
   only:
-    - cookbook3
+    - blog4
 
 deploy:
   stage: deploy
   script:
-    - sudo apt-get install -y rsync
-    - puma-stop 3000
-    - rsync -arv --delete ./cookbook3 ~
-    - cd ~/cookbook3
+    - puma-stop 4000
+    - rsync -arv --delete ./blog4 ~
+    - cd ~/blog4
     - bundle install
     - rails db:migrate
-    - nohup rails server -d -b 0.0.0.0 -p 3000 &
+    - nohup rails server -d -b 0.0.0.0 -p 4000 &
   only:
-  - cookbook3
+    - blog4
