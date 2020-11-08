@@ -1,5 +1,6 @@
 class BlogsController < ApplicationController
   before_action :set_blog, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate, except: [:index, :show]
 
   # GET /blogs
   # GET /blogs.json
@@ -30,6 +31,7 @@ class BlogsController < ApplicationController
   # POST /blogs.json
   def create
     @blog = Blog.new(blog_params)
+    @blog.user = current_user
 
     respond_to do |format|
       if @blog.save
@@ -67,6 +69,13 @@ class BlogsController < ApplicationController
   end
 
   private
+    def authenticate
+      redirect_to login_users_url, alert: 'Must login!' unless current_user
+      #authenticate_or_request_with_http_basic "My custom message" do |user_name, password| 
+      #  user_name == "Kiainio" && password == "Kiainio" 
+      #end
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_blog
       @blog = Blog.find(params[:id])
