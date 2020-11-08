@@ -3,6 +3,7 @@ require 'test_helper'
 class BlogsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @blog = blogs(:one)
+    @comment = comments(:one)
   end
 
   test "should get index" do
@@ -17,7 +18,7 @@ class BlogsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create blog" do
     assert_difference('Blog.count') do
-      post blogs_url, params: { blog: { content: @blog.content, title: @blog.title } }
+      post blogs_url, params: { blog: { content: @blog.content, title: @blog.title, comment_id: @comment.id } }
     end
 
     assert_redirected_to blog_url(Blog.last)
