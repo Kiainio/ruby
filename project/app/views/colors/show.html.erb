@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Color:</strong>
+  <%= @color.color_id %>
+</p>
+
+<p>
+  <strong>Rgb:</strong>
+  <%= @color.rgb %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @color.description %>
+</p>
+
+<p>
+  <strong>Products of this color:</strong>
+  <%= (@color.products.collect { |product| product.product_name }).join(", ") %>
+</p>
+
+<%= link_to 'Edit', edit_color_path(@color) %> |
+<%= link_to 'Back', colors_path %>

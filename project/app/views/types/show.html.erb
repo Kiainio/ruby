@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @type.type_id %>
+</p>
+
+<p>
+  <strong>Product type name: </strong>
+  <%= @type.product_type_name %>
+</p>
+
+<p>
+  <strong>Products of this type:</strong>
+  <%= (@type.products.collect { |product| product.product_name }).join(", ") %>
+</p>
+
+<%= link_to 'Edit', edit_type_path(@type) %> |
+<%= link_to 'Back', types_path %>
