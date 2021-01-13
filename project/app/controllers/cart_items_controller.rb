@@ -25,6 +25,8 @@ class CartItemsController < ApplicationController
   # POST /cart_items.json
   def create
     @cart_item = CartItem.new(cart_item_params)
+    @transaction_item = TransactionItem.new
+    @transaction_item.cart_item = @cart_item
 
     respond_to do |format|
       if @cart_item.save
