@@ -23,7 +23,7 @@
         <td><%= transaction_order.delivery_phone %></td>
         <td><%= transaction_order.delivery_postcode %></td>
         <td><%= transaction_order.order_status %></td>
-        <td><%= (transaction_order.transaction_items.collect{|transaction_item|transaction_item.price}).join(",") %></td>
+        <td><%= (transaction_order.transaction_items.collect{|transaction_item|transaction_item.price}).sum %></td>
         <td><%= link_to 'Show', transaction_order %></td>
         <td><%= link_to 'Edit', edit_transaction_order_path(transaction_order) %></td>
         <td><%= link_to 'Destroy', transaction_order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
