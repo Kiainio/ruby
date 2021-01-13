@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Delivery name:</strong>
+  <%= @transaction_order.delivery_name %>
+</p>
+
+<p>
+  <strong>Delivery address:</strong>
+  <%= @transaction_order.delivery_address %>
+</p>
+
+<p>
+  <strong>Delivery phone:</strong>
+  <%= @transaction_order.delivery_phone %>
+</p>
+
+<p>
+  <strong>Delivery postcode:</strong>
+  <%= @transaction_order.delivery_postcode %>
+</p>
+
+<p>
+  <strong>Order status:</strong>
+  <%= @transaction_order.order_status %>
+</p>
+
+<p>
+  <strong>Deal sum:</strong>
+  <%= @transaction_order.deal_sum %>
+</p>
+
+<%= link_to 'Edit', edit_transaction_order_path(@transaction_order) %> |
+<%= link_to 'Back', transaction_orders_path %>

@@ -27,6 +27,10 @@ class CartItemsController < ApplicationController
     @cart_item = CartItem.new(cart_item_params)
     @transaction_item = TransactionItem.new
     @transaction_item.cart_item = @cart_item
+    @transaction_item.price = @cart_item.product.retail_price * @cart_item.quantity
+    @transaction_order = current_order
+    @transaction_item.transaction_order = @transaction_order
+    @transaction_order.transaction_items << @transaction_item
 
     respond_to do |format|
       if @cart_item.save
