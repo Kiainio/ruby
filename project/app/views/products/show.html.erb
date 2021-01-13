@@ -45,5 +45,13 @@
   <%= @product.type.product_type_name if @product.type %>
 </p>
 
+<<<<<<< HEAD
+=======
+<p>
+  <strong>Status:</strong>
+  <%= "Added" if @product.cart_item %>
+</p>
+
+>>>>>>> b21dcd7de1a58f596585d06476686539bfd4136e
 <%= link_to 'Edit', edit_product_path(@product) %> |
 <%= link_to 'Back', products_path %>

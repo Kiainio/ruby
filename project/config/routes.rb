@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
+<<<<<<< HEAD
   get '/update_status/:id', to: 'transaction_orders#update_status', as: 'update_status'
 
   resources :transaction_orders
+=======
+>>>>>>> b21dcd7de1a58f596585d06476686539bfd4136e
   resources :transaction_items
   resources :cart_items
   resources :types
