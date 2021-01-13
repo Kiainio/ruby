@@ -27,8 +27,7 @@
 
 <p>
   <strong>Deal sum:</strong>
-  <%= @transaction_order.deal_sum %>
+  <%= @transaction_order.deal_sum = (@transaction_order.transaction_items.collect{|transaction_item|transaction_item.price}).sum %>
 </p>
 
-<%= link_to 'Edit', edit_transaction_order_path(@transaction_order) %> |
 <%= link_to 'Back', transaction_orders_path %>

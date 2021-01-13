@@ -61,6 +61,26 @@ class TransactionOrdersController < ApplicationController
     end
   end
 
+  def update_status
+    str = ""
+    @transaction_order = TransactionOrder.find(params[:id])
+    @status = params[:status]
+    case @status
+    when "1"
+      str = "Paid"
+    when "3"
+      str = "Delivered"
+    when "2"
+      str = "Transaction Finished"
+    end
+    @transaction_order.order_status = str
+    @transaction_order.save
+    respond_to do |format|
+      format.html { redirect_to @transaction_order, notice: 'Transaction order was successfully updated.' }
+      format.json { render :show, status: :ok, location: @transaction_order }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_transaction_order

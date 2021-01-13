@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get '/update_status/:id', to: 'transaction_orders#update_status', as: 'update_status'
+
   resources :transaction_orders
   resources :transaction_items
   resources :cart_items
