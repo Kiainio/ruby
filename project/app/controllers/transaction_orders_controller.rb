@@ -4,7 +4,11 @@ class TransactionOrdersController < ApplicationController
   # GET /transaction_orders
   # GET /transaction_orders.json
   def index
-    @transaction_orders = TransactionOrder.all
+    if authenticate_customer or authenticate_administrator
+      @transaction_orders = TransactionOrder.all
+    else
+      error
+    end
   end
 
   # GET /transaction_orders/1
@@ -19,6 +23,9 @@ class TransactionOrdersController < ApplicationController
 
   # GET /transaction_orders/1/edit
   def edit
+    if !authenticate_customer
+      error
+    end
   end
 
   # POST /transaction_orders
@@ -54,6 +61,9 @@ class TransactionOrdersController < ApplicationController
   # DELETE /transaction_orders/1
   # DELETE /transaction_orders/1.json
   def destroy
+    if !authenticate_customer and !authenticate_administrator
+      error
+    end
     @transaction_order.destroy
     respond_to do |format|
       format.html { redirect_to transaction_orders_url, notice: 'Transaction order was successfully destroyed.' }
@@ -61,19 +71,42 @@ class TransactionOrdersController < ApplicationController
     end
   end
 
-  def update_status
+  def update_status_customer
+    if !authenticate_customer
+      error
+    end
     str = ""
     @transaction_order = TransactionOrder.find(params[:id])
     @status = params[:status]
     case @status
     when "1"
       str = "Paid"
-    when "3"
-      str = "Delivered"
+      if !@transaction_order.order_status == "Unpaid"
+        error
+      end
     when "2"
       str = "Transaction Finished"
+      if !@transaction_order.order_status == "Delivered"
+        error
+      end
     end
     @transaction_order.order_status = str
+    @transaction_order.save
+    respond_to do |format|
+      format.html { redirect_to @transaction_order, notice: 'Transaction order was successfully updated.' }
+      format.json { render :show, status: :ok, location: @transaction_order }
+    end
+  end
+
+  def update_status_administrator
+    if !authenticate_administrator
+      error
+    end
+    @transaction_order = TransactionOrder.find(params[:id])
+    if !@transaction_order.order_status == "Paid"
+      error
+    end
+    @transaction_order.order_status = "Delivered"
     @transaction_order.save
     respond_to do |format|
       format.html { redirect_to @transaction_order, notice: 'Transaction order was successfully updated.' }
@@ -90,5 +123,17 @@ class TransactionOrdersController < ApplicationController
     # Only allow a list of trusted parameters through.
     def transaction_order_params
       params.require(:transaction_order).permit(:delivery_name, :delivery_address, :delivery_phone, :delivery_postcode, :order_status, :deal_sum)
+    end
+
+    def authenticate_customer
+      return current_user && current_user.user_role == 1 
+    end
+
+    def authenticate_administrator
+      return current_user && current_user.user_role == 2 
+    end
+
+    def error
+      raise "Permission denied"
     end
 end

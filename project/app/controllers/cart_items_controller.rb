@@ -1,5 +1,6 @@
 class CartItemsController < ApplicationController
   before_action :set_cart_item, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_customer
 
   # GET /cart_items
   # GET /cart_items.json
@@ -25,7 +26,9 @@ class CartItemsController < ApplicationController
   # POST /cart_items.json
   def create
     @cart_item = CartItem.new(cart_item_params)
+    @cart_item.user = current_user
     @transaction_item = TransactionItem.new
+    @transaction_item.user = current_user
     @transaction_item.cart_item = @cart_item
     @transaction_item.price = @cart_item.product.retail_price * @cart_item.quantity
     @transaction_order = current_order
@@ -76,5 +79,13 @@ class CartItemsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def cart_item_params
       params.require(:cart_item).permit(:product_id, :quantity)
+    end
+
+    def authenticate_customer
+      raise "Permission Denied" unless current_user && current_user.user_role == 1 
+    end
+
+    def authenticate_administrator
+      raise "Permission Denied" unless current_user && current_user.user_role == 2 
     end
 end

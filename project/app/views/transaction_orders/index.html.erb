@@ -5,11 +5,13 @@
 <table>
   <thead>
     <tr>
+      <th>Customer ID</th>
       <th>Delivery name</th>
       <th>Delivery address</th>
       <th>Delivery phone</th>
       <th>Delivery postcode</th>
       <th>Order status</th>
+      <th>Added time</th>
       <th>Deal sum</th>
       <th colspan="5"></th>
     </tr>
@@ -17,17 +19,22 @@
 
   <tbody>
     <% @transaction_orders.each do |transaction_order| %>
+      <% if current_user.user_role != 2 and transaction_order.user != current_user %>
+        <% next %>
+      <% end %>
       <tr>
+        <td><%= transaction_order.user.user_id %>
         <td><%= transaction_order.delivery_name %></td>
         <td><%= transaction_order.delivery_address %></td>
         <td><%= transaction_order.delivery_phone %></td>
         <td><%= transaction_order.delivery_postcode %></td>
         <td><%= transaction_order.order_status %></td>
+        <td><%= time_ago_in_words(transaction_order.created_at) %></td>
         <td><%= (transaction_order.transaction_items.collect{|transaction_item|transaction_item.price}).sum %></td>
         <td><%= link_to 'Fill in Delivery Info', edit_transaction_order_path(transaction_order) %></td>
-        <td><%= link_to 'Pay', update_status_path(transaction_order, status: 1), method: :get %></td>
-        <td><%= link_to 'Confirm Receipt', update_status_path(transaction_order, status: 2), method: :get %></td>
-        <td><%= link_to 'Deliver', update_status_path(transaction_order, status: 3), method: :get %></td>
+        <td><%= link_to 'Pay', update_status_customer_path(transaction_order, status: 1), method: :get %></td>
+        <td><%= link_to 'Confirm Receipt', update_status_customer_path(transaction_order, status: 2), method: :get %></td>
+        <td><%= link_to 'Deliver', update_status_administrator_path(transaction_order), method: :get %></td>
         <td><%= link_to 'Cancel Transaction', transaction_order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <td><%= link_to 'Delete', transaction_order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>

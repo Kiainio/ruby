@@ -5,6 +5,7 @@
 <table>
   <thead>
     <tr>
+      <th>Customer ID</th>
       <th>Product ID</th>
       <th>Quantity</th>
       <th>Added Time</th>
@@ -15,6 +16,7 @@
   <tbody>
     <% @cart_items.each do |cart_item| %>
       <tr>
+        <td><%= cart_item.user.user_id %></td>
         <td><%= cart_item.product.product_id if cart_item.product %></td>
         <td><%= cart_item.quantity %></td>
         <td><%= time_ago_in_words(cart_item.created_at) %></td>

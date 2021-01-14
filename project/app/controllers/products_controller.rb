@@ -1,5 +1,6 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_administrator, only: [:new, :edit, :create, :update, :destroy]
 
   # GET /products
   # GET /products.json
@@ -25,6 +26,7 @@ class ProductsController < ApplicationController
   # POST /products.json
   def create
     @product = Product.new(product_params)
+    @product.user = current_user
 
     respond_to do |format|
       if @product.save
@@ -70,5 +72,13 @@ class ProductsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def product_params
       params.require(:product).permit(:product_id, :product_name, :description, :retail_price, :sales, :image_directory, :color_id, :size_id, :type_id)
+    end
+
+    def authenticate_customer
+      raise "Permission Denied" unless current_user && current_user.user_role == 1 
+    end
+
+    def authenticate_administrator
+      raise "Permission Denied" unless current_user && current_user.user_role == 2 
     end
 end

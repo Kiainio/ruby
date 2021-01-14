@@ -10,13 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_13_091456) do
+ActiveRecord::Schema.define(version: 2021_01_13_142043) do
+
   create_table "cart_items", force: :cascade do |t|
     t.integer "product_id"
     t.integer "quantity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
     t.index ["product_id"], name: "index_cart_items_on_product_id"
+    t.index ["user_id"], name: "index_cart_items_on_user_id"
   end
 
   create_table "colors", force: :cascade do |t|
@@ -39,9 +42,11 @@ ActiveRecord::Schema.define(version: 2021_01_13_091456) do
     t.integer "color_id"
     t.integer "size_id"
     t.integer "type_id"
+    t.integer "user_id"
     t.index ["color_id"], name: "index_products_on_color_id"
     t.index ["size_id"], name: "index_products_on_size_id"
     t.index ["type_id"], name: "index_products_on_type_id"
+    t.index ["user_id"], name: "index_products_on_user_id"
   end
 
   create_table "sizes", force: :cascade do |t|
@@ -57,11 +62,11 @@ ActiveRecord::Schema.define(version: 2021_01_13_091456) do
     t.decimal "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-<<<<<<< HEAD
-<<<<<<< HEAD
     t.integer "transaction_order_id"
+    t.integer "user_id"
     t.index ["cart_item_id"], name: "index_transaction_items_on_cart_item_id"
     t.index ["transaction_order_id"], name: "index_transaction_items_on_transaction_order_id"
+    t.index ["user_id"], name: "index_transaction_items_on_user_id"
   end
 
   create_table "transaction_orders", force: :cascade do |t|
@@ -73,17 +78,22 @@ ActiveRecord::Schema.define(version: 2021_01_13_091456) do
     t.decimal "deal_sum"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-=======
-    t.index ["cart_item_id"], name: "index_transaction_items_on_cart_item_id"
->>>>>>> b21dcd7de1a58f596585d06476686539bfd4136e
-=======
-    t.index ["cart_item_id"], name: "index_transaction_items_on_cart_item_id"
->>>>>>> b21dcd7de1a58f596585d06476686539bfd4136e
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_transaction_orders_on_user_id"
   end
 
   create_table "types", force: :cascade do |t|
     t.integer "type_id"
     t.string "product_type_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "user_name"
+    t.string "password"
+    t.integer "user_role"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
