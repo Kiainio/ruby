@@ -1,5 +1,6 @@
 class SizesController < ApplicationController
   before_action :set_size, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_administrator
 
   # GET /sizes
   # GET /sizes.json
@@ -70,5 +71,13 @@ class SizesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def size_params
       params.require(:size).permit(:size_id, :size_name, :description)
+    end
+
+    def authenticate_customer
+      raise "Permission Denied" unless current_user && current_user.user_role == 1 
+    end
+
+    def authenticate_administrator
+      raise "Permission Denied" unless current_user && current_user.user_role == 2 
     end
 end

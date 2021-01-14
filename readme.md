@@ -1,0 +1,113 @@
+# 简易电子商务系统
+## 数据库设计
+- user
+    - integer :user_id
+    - string :user_name
+    - string :password
+    - integer :user_role
+- product
+    - integer :product_id
+    - string :product_name
+    - string :description
+    - decimal :retail_price
+    - integer :sales
+    - string :image_directory
+    - references :color
+    - references :size
+    - references :type
+- color
+    - integer :color_id
+    - integer :rgb
+    - string :description
+- size
+    - integer :size_id
+    - string :size_name
+    - string :description
+- type
+    - integer :type_id
+    - string :product_type_name
+- cart_item
+    - references :user
+    - references :product
+    - integer :quantity
+- transaction_item
+    - references :cart_item
+    - decimal :price
+- transaction_order
+    - string :delivery_name
+    - string :delivery_address
+    - string :delivery_phone
+    - string :delivery_postcode
+    - string :order_status
+    - decimal :deal_sum
+## 数据库说明
+- 用户表
+    - id
+    - 用户名
+    - 密码
+    - 角色，1：买家，2：管理员
+- 产品表
+    - id
+    - 名称
+    - 描述
+    - 价格
+    - 销量
+    - 图片路径
+    - 外键：颜色
+    - 外键：尺寸
+    - 外键：类型
+- 颜色表
+    - id
+    - 灰度值
+    - 颜色名称
+- 尺寸表
+    - id
+    - 尺寸名称
+    - 尺寸描述
+- 类型表
+    - id
+    - 类型名称
+- 购物车表
+    - 外键：用户
+    - 外键：产品
+    - 数量
+- 订单项表
+    - 外键：购物车
+    - 价格
+- 订单表
+    - 收货人
+    - 收货地址
+    - 收货电话
+    - 邮编
+    - 订单状态
+    - 总额
+## 操作说明
+- 未登录
+    - 浏览商品
+    - 查看单品详情
+- 顾客
+    - 浏览商品
+    - 查看单品详情
+    - 进入购物车
+    - 对购物车内商品增、删、改
+    - 生成订单
+    - 查看自己的订单列表
+    - 付款、确认收货、取消订单
+- 管理员
+    - 浏览商品
+    - 查看单品详情
+    - 增加商品
+    - 删除商品
+    - 修改颜色、尺寸、类型
+    - 查看所有的订单列表
+    - 发货、删除订单
+## 账号密码
+- Customer1
+    - user_name: Customer1
+    - password: 123456
+- Customer2
+    - user_name: Customer2
+    - password: 123456
+- Administrator
+    - user_name: Administrator
+    - password: 123456

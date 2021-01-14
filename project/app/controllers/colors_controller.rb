@@ -1,5 +1,6 @@
 class ColorsController < ApplicationController
   before_action :set_color, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_administrator
 
   # GET /colors
   # GET /colors.json
@@ -70,5 +71,13 @@ class ColorsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def color_params
       params.require(:color).permit(:color_id, :rgb, :description)
+    end
+
+    def authenticate_customer
+      raise "Permission Denied" unless current_user && current_user.user_role == 1 
+    end
+
+    def authenticate_administrator
+      raise "Permission Denied" unless current_user && current_user.user_role == 2 
     end
 end

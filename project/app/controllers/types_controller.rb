@@ -1,5 +1,6 @@
 class TypesController < ApplicationController
   before_action :set_type, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_administrator
 
   # GET /types
   # GET /types.json
@@ -70,5 +71,13 @@ class TypesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def type_params
       params.require(:type).permit(:type_id, :product_type_name)
+    end
+
+    def authenticate_customer
+      raise "Permission Denied" unless current_user && current_user.user_role == 1 
+    end
+
+    def authenticate_administrator
+      raise "Permission Denied" unless current_user && current_user.user_role == 2 
     end
 end
